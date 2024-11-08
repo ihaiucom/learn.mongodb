@@ -1,2 +1,5 @@
 ﻿01_shellrun/mongodb/data/db
 02_single/mongodb/data/db
+csharp/MongodbCsharpTest/.idea
+csharp/MongodbCsharpTest/MongodbCsharpTest/bin
+csharp/MongodbCsharpTest/MongodbCsharpTest/obj
