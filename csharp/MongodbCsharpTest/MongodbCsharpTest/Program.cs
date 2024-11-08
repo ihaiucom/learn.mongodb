@@ -19,6 +19,12 @@ namespace ET
            
            
            MongoHelp.I.Init(connStr, "game");
+           Console.WriteLine("--------------初始化前UserData索引");
+           MongoHelp.I.PrintIndex<UserData>();
+           UserHelper.InitIndexes();
+           Console.WriteLine("--------------初始化完UserData索引");
+           MongoHelp.I.PrintIndex<UserData>();
+           Console.WriteLine("--------------------------------------");
            
            // UserHelper.Register("zf", "123456", "zf@qq.com", "111");
            // UserHelper.Register("zf2", "123456", "zf2@qq.com", "222");
@@ -35,7 +41,9 @@ namespace ET
            // await Test.QueryAsync();
            // await Test.UpdateOneAsync();
            // await Test.UpdateManyAsync();
-           await Test.TaskReplaceOneAsync();
+           // await Test.TaskReplaceOneAsync();
+           // MongoHelp.I.PrintIndex<UserData>();
+           MongoHelp.I.PrintIndex<UserData>("users");
            Console.WriteLine("执行完毕");
 
            //  //2.创建连接MongoClient实例实际上代表了一个到数据库的连接池，即使有多个线程，也只需要一个MongoClient类的实例

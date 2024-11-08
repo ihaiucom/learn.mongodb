@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace ET
@@ -205,6 +206,41 @@ namespace ET
             }
             Console.WriteLine($"GetNextSequence {collection}: {collectionCounter.Count}");
             return collectionCounter.Count;
+        }
+
+        public List<BsonDocument> GetIndex<T>(string collection = null)
+        {
+            if (collection == null)
+            {
+                collection = typeof (T).FullName;
+            }
+
+            var indexes = GetCollection<T>(collection).Indexes.List().ToList();
+            return indexes;
+        }
+        public void PrintIndex<T>(string collection = null)
+        {
+            if (collection == null)
+            {
+                collection = typeof (T).FullName;
+            }
+
+            var indexes = GetCollection<T>(collection).Indexes.List().ToList();
+            foreach (var index in indexes)
+            {
+                Console.WriteLine(index.ToJson());
+            }
+        }
+
+        public string CreateOne<T>(string filedName, string collection = null)
+        {
+            if (collection == null)
+            {
+                collection = typeof (T).FullName;
+            }
+
+            CreateIndexModel<T> indexModel = new CreateIndexModel<T>(Builders<T>.IndexKeys.Ascending(filedName));
+            return GetCollection<T>(collection).Indexes.CreateOne(indexModel);
         }
     }
 }
